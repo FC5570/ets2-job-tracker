@@ -1,0 +1,33 @@
+{
+	"name": "api",
+	"main": "./dist/index.js",
+	"type": "module",
+	"imports": {
+		"#lib/*": "./dist/lib/*.js",
+		"#types/*": "./dist/lib/types/*.js"
+	},
+	"scripts": {
+		"start": "cross-env NODE_ENV=production yarn build && node dist/index.js",
+		"dev": "yarn build && node dist/index.js",
+		"build": "tsc -b src",
+		"format": "yarn prettier --write .",
+		"lint": "yarn eslint --fix --ext .ts ."
+	},
+	"dependencies": {
+		"@discordjs/builders": "^0.13.0",
+		"@sapphire/decorators": "^4.3.4",
+		"@sapphire/framework": "next",
+		"@sapphire/plugin-api": "^3.2.1",
+		"@sapphire/plugin-logger": "^2.2.1",
+		"@sapphire/shapeshift": "^2.1.0",
+		"discord.js": "^13.6.0",
+		"dotenv-cra": "^3.0.2",
+		"ioredis": "^5.0.4"
+	},
+	"packageManager": "yarn@3.2.0",
+	"devDependencies": {
+		"eslint": "^8.14.0",
+		"prettier": "^2.6.2",
+		"tsup": "^5.12.6"
+	}
+}

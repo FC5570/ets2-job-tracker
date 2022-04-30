@@ -1,0 +1,28 @@
+{
+	"name": "app",
+	"main": "dist/index.js",
+	"bin": "dist/index.js",
+	"imports": {
+		"#lib/*": "./dist/lib/*.js",
+		"#types/*": "./dist/lib/types/*.js"
+	},
+	"scripts": {
+		"build": "tsc -b src",
+		"format": "yarn prettier --write .",
+		"test": "yarn build && node dist",
+		"lint": "yarn eslint --fix --ext .ts .",
+		"compile": "yarn pkg dist/index.js"
+	},
+	"dependencies": {
+		"centra": "^2.5.0",
+		"colorette": "^2.0.16",
+		"prompts": "^2.4.2"
+	},
+	"packageManager": "yarn@3.2.0",
+	"devDependencies": {
+		"@types/centra": "^2.2.0",
+		"@types/prompts": "^2.0.14",
+		"eslint": "^8.14.0",
+		"prettier": "^2.6.2"
+	}
+}
