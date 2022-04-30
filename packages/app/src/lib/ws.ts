@@ -16,10 +16,10 @@ import type { ParsedData } from './types/interfaces';
 export function start(userId: string) {
 	const ws = createConnection({ host: WEBSOCKET_HOST, port: WEBSOCKET_PORT });
 
-	ws.on('connect', handleConnect);
-	ws.on('data', (data) => handleMessage(userId, data));
-	ws.on('error', console.log);
-	ws.on('close', handleClose);
+	ws.on('connect', handleConnect)
+		.on('error', error)
+		.on('close', handleClose)
+		.on('data', (data) => handleMessage(userId, data));
 }
 
 function handleConnect() {
@@ -27,19 +27,14 @@ function handleConnect() {
 }
 
 async function handleMessage(userId: string, message: Buffer) {
-	const parsed = parseData<ParsedData>(message);
+	const { status, jobData } = parseData<ParsedData>(message);
+	const { sourceCompany, sourceCity, destinationCompany, destinationCity, cargo } = jobData;
 
-	if (parsed.status === 'JOB STARTED') {
-		const { jobData } = parsed;
-		info(
-			`Your job from ${jobData.sourceCompany} (${jobData.sourceCity}) to ${jobData.destinationCompany} (${jobData.destinationCity}) carrying ${jobData.cargo} has started.`
-		);
+	if (status === 'JOB STARTED') {
+		info(`Your job from ${sourceCompany} (${sourceCity}) to ${destinationCompany} (${destinationCity}) carrying ${cargo} has started.`);
 		await postJobData(userId, 'START', jobData);
-	} else if (parsed.status === 'JOB FINISHED') {
-		const { jobData } = parsed;
-		info(
-			`Your job from ${jobData.sourceCompany} (${jobData.sourceCity}) to ${jobData.destinationCompany} (${jobData.destinationCity}) carrying ${jobData.cargo} has finished.`
-		);
+	} else if (status === 'JOB FINISHED') {
+		info(`Your job from ${sourceCompany} (${sourceCity}) to ${destinationCompany} (${destinationCity}) carrying ${cargo} has finished.`);
 		await postJobData(userId, 'END', jobData);
 	}
 }

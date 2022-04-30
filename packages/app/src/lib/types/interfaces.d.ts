@@ -14,5 +14,3 @@ export interface JobData extends ParsedData {
 	realTimeStarted: number;
 	realTimeEnded: number;
 }
-
-export interface PostJobOptions extends JobData {}
