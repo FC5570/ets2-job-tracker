@@ -12,9 +12,7 @@
 		"format": "yarn turbo run format"
 	},
 	"dependencies": {
-		"pkg": "^5.6.0",
-		"turbo": "^1.2.5",
-		"ws": "^8.5.0"
+		"turbo": "^1.2.5"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^16.2.4",
@@ -40,6 +38,6 @@
 		]
 	},
 	"lint-staged": {
-		"*.ts": "yarn eslint --fix"
+		"*.ts": "eslint --fix"
 	}
 }
