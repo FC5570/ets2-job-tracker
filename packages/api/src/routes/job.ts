@@ -24,9 +24,7 @@ export class JobRoute extends Route {
 				err: `User with ID ${data.userId} not found.`
 			});
 
-		if (data.action === 'START')
-			await this.sendDM(user, data, data.action).catch(() => res.status(HttpCodes.BadRequest).json({ err: 'Could not DM that user.' }));
-		else if (data.action === 'END')
+		if (data.action === 'START' || data.action === 'END')
 			await this.sendDM(user, data, data.action).catch(() => res.status(HttpCodes.BadRequest).json({ err: 'Could not DM that user.' }));
 
 		return res.status(HttpCodes.OK).json({
